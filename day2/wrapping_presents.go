@@ -78,3 +78,5 @@ func SecondProblem(input string) int {
 	}
 	return i + 1
 }
+
+

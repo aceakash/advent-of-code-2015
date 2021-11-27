@@ -1,20 +1,4 @@
-package main
-
-import "fmt"
-import . "github.com/aceakash/advent-of-code-2015/day2"
-
-func main() {
-	ans1 := FirstProblem(getInput())
-	fmt.Println("First problem answer:", ans1)
-
-	//ans2 := SecondProblem(getInput())
-	//fmt.Println("Second problem answer:", ans2)
-}
-
-
-
-func getInput() string {
-	return `4x23x21
+4x23x21
 22x29x19
 11x4x11
 8x10x5
@@ -1014,5 +998,3 @@ func getInput() string {
 21x29x14
 20x29x30
 23x11x5
-`
-}

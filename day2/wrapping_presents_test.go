@@ -1,6 +1,19 @@
 package day2
 
-import "testing"
+import (
+	. "github.com/aceakash/advent_of_code_2015"
+	"testing"
+)
+
+func TestFirstProblem(t *testing.T) {
+	input := MustReadFile()
+	got := FirstProblem(input)
+	want := 1598415
+
+	if got != want {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
 
 func TestCalAreaForWrapping(t *testing.T) {
 
@@ -26,3 +39,5 @@ func TestCalAreaForWrapping(t *testing.T) {
 		t.Errorf("Expected 43 for %v, got %d", present2, got2)
 	}
 }
+
+

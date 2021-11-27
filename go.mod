@@ -1,3 +1,3 @@
-module github.com/aceakash/advent-of-code-2015
+module github.com/aceakash/advent_of_code_2015
 
 go 1.16
