@@ -1,8 +1,8 @@
 package day2
 
 import (
+	. "github.com/aceakash/advent_of_code_2015"
 	"sort"
-	"strconv"
 	"strings"
 )
 
@@ -12,7 +12,6 @@ type PresentDimensions struct {
 	h int
 }
 
-// Answer: 1598415
 func FirstProblem(input string) int {
 	var parsedInput []PresentDimensions = parseInput(input)
 
@@ -22,6 +21,21 @@ func FirstProblem(input string) int {
 	}
 
 	return totalArea
+}
+
+func SecondProblem(input string) int {
+	var parsedInput []PresentDimensions = parseInput(input)
+
+	totalRibbonLength := 0
+	for _, present := range parsedInput {
+		totalRibbonLength += RibbonLength(present)
+	}
+
+	return totalRibbonLength
+}
+
+func RibbonLength(present PresentDimensions) int {
+	return 0
 }
 
 func PresentArea(present PresentDimensions) int {
@@ -53,30 +67,8 @@ func parseInput(input string) []PresentDimensions {
 	return dims
 }
 
-func MustParseInt(s string) int {
-	i, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		panic(err)
-	}
-	return int(i)
-}
 
-// Ans:
-func SecondProblem(input string) int {
-	count := 0
-	var i int
-	for _, c := range input {
-		if c == '(' {
-			count++
-		} else if c == ')' {
-			count--
-		}
-		if count == -1 {
-			break
-		}
-		i++
-	}
-	return i + 1
-}
+
+
 
 

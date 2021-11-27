@@ -15,28 +15,30 @@ func TestFirstProblem(t *testing.T) {
 	}
 }
 
+func TestSecondProblem(t *testing.T) {
+	input := MustReadFile()
+	got := SecondProblem(input)
+	want := 99
+
+	if got != want {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
 func TestCalAreaForWrapping(t *testing.T) {
-
-	present1 := PresentDimensions{
-		l: 2,
-		w: 3,
-		h: 4,
+	testData := []struct{
+		present PresentDimensions
+		want int
+	}{
+		{PresentDimensions{2, 3, 4}, 58,},
+		{PresentDimensions{1, 1, 10,}, 43,},
 	}
 
-	got1 := PresentArea(present1)
-	if got1 != 58 {
-		t.Errorf("Expected 58 for %v, got %d", present1, got1)
-	}
-
-	present2 := PresentDimensions{
-		l: 1,
-		w: 1,
-		h: 10,
-	}
-
-	got2 := PresentArea(present2)
-	if got2 != 43 {
-		t.Errorf("Expected 43 for %v, got %d", present2, got2)
+	for _, td := range testData {
+		got := PresentArea(td.present)
+		if got != td.want {
+			t.Errorf("Wanted %d for %v, got %d", td.want, td.present, got)
+		}
 	}
 }
 
