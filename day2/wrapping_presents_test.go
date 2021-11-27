@@ -42,4 +42,21 @@ func TestCalAreaForWrapping(t *testing.T) {
 	}
 }
 
+func TestRibbonLength(t *testing.T) {
+	testData := []struct{
+		present PresentDimensions
+		want int
+	}{
+		{PresentDimensions{2, 3, 4}, 34,},
+		{PresentDimensions{1, 1, 10,}, 14,},
+	}
+
+	for _, td := range testData {
+		got := RibbonLength(td.present)
+		if got != td.want {
+			t.Errorf("Wanted %d for %v, got %d", td.want, td.present, got)
+		}
+	}
+}
+
 

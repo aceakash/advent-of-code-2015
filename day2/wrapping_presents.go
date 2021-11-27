@@ -35,7 +35,20 @@ func SecondProblem(input string) int {
 }
 
 func RibbonLength(present PresentDimensions) int {
-	return 0
+	//l, h, w := present.l, present.h, present.w
+	p := smallestPerimeter(present)
+	v := cubicVolume(present)
+	return p + v
+}
+
+func cubicVolume(present PresentDimensions) int {
+	return present.w*present.l*present.h
+}
+
+func smallestPerimeter(present PresentDimensions) int {
+	dims := []int{present.h, present.l, present.w}
+	sort.Ints(dims)
+	return 2*(dims[0] + dims[1])
 }
 
 func PresentArea(present PresentDimensions) int {
