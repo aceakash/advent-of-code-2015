@@ -22,3 +22,9 @@ func MustParseInt(s string) int {
 	}
 	return int(i)
 }
+
+func MustGetInputLinesFromFile() []string {
+	s := MustReadFile()
+	lines := strings.Split(s, "\n")
+	return lines
+}

@@ -18,7 +18,7 @@ func TestFirstProblem(t *testing.T) {
 func TestSecondProblem(t *testing.T) {
 	input := MustReadFile()
 	got := SecondProblem(input)
-	want := 99
+	want := 3812909
 
 	if got != want {
 		t.Errorf("Wanted %v, got %v", want, got)

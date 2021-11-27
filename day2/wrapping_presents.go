@@ -13,7 +13,7 @@ type PresentDimensions struct {
 }
 
 func FirstProblem(input string) int {
-	var parsedInput []PresentDimensions = parseInput(input)
+	parsedInput := parseInput(input)
 
 	totalArea := 0
 	for _, present := range parsedInput {
@@ -24,7 +24,7 @@ func FirstProblem(input string) int {
 }
 
 func SecondProblem(input string) int {
-	var parsedInput []PresentDimensions = parseInput(input)
+	parsedInput := parseInput(input)
 
 	totalRibbonLength := 0
 	for _, present := range parsedInput {
@@ -41,29 +41,35 @@ func RibbonLength(present PresentDimensions) int {
 	return p + v
 }
 
-func cubicVolume(present PresentDimensions) int {
-	return present.w*present.l*present.h
-}
-
-func smallestPerimeter(present PresentDimensions) int {
-	dims := []int{present.h, present.l, present.w}
-	sort.Ints(dims)
-	return 2*(dims[0] + dims[1])
-}
-
 func PresentArea(present PresentDimensions) int {
 	a := areaOfSmallestSize(present)
 	return 2*(present.w*present.h+present.w*present.l+present.l*present.h) + a
 }
 
+
+func cubicVolume(present PresentDimensions) int {
+	return present.w * present.l * present.h
+}
+
+func smallestPerimeter(present PresentDimensions) int {
+	s1, s2 := twoSmallestSides(present)
+	return 2 * (s1 + s2)
+}
+
+
 func areaOfSmallestSize(present PresentDimensions) int {
+	s1, s2 := twoSmallestSides(present)
+	return s1 * s2
+}
+
+func twoSmallestSides(present PresentDimensions) (a, b int) {
 	dims := []int{present.h, present.l, present.w}
 	sort.Ints(dims)
-	return dims[0] * dims[1]
+	return dims[0], dims[1]
 }
 
 func parseInput(input string) []PresentDimensions {
-	lines := strings.Split(input, "\n")
+	lines := MustGetInputLinesFromFile()
 	dims := []PresentDimensions{}
 	for _, line := range lines {
 		if len(strings.TrimSpace(line)) == 0 {
@@ -79,9 +85,3 @@ func parseInput(input string) []PresentDimensions {
 	}
 	return dims
 }
-
-
-
-
-
-
