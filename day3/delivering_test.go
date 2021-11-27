@@ -13,4 +13,14 @@ func TestFirstProblem(t *testing.T) {
 	}
 }
 
+func TestFirstProblem_Examples(t *testing.T) {
+	input := `>`
+	got := FirstProblem(input)
+	want := 2
+
+	if got != want {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
 
