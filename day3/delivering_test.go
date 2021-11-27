@@ -1,7 +1,6 @@
 package day3
 
 import (
-	"math"
 	"testing"
 )
 import . "github.com/aceakash/advent_of_code_2015"
@@ -30,10 +29,10 @@ func TestSecondProblem(t *testing.T) {
 		input string
 		want int
 	}{
-		{`>`, 3,},
+		{`^v`, 3,},
 		{`^>v<`, 3,},
 		{`^v^v^v^v^v`, 11,},
-		{ MustReadFile(), math.MaxInt64},
+		{ MustReadFile(), 2631},
 	}
 
 	for _, td := range testData {

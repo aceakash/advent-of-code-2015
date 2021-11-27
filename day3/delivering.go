@@ -16,15 +16,11 @@ func deliveryJob(startLoc Location, dirs []Direction) map[Location]int {
 	visited[currLoc] += 1
 	for _, dir := range dirs {
 		newLoc := goToNextLocation(currLoc, dir)
-		//fmt.Printf("Started at %v, followed %v, ended up at %v\n", currLoc, dir, newLoc)
 		visited[newLoc] += 1
 		currLoc = newLoc
 	}
 	return visited
 }
-
-
-
 
 func SecondProblem(input string) int {
 	var dirs []Direction = directionsFromInput(input)
@@ -35,6 +31,40 @@ func SecondProblem(input string) int {
 
 	visited := mergeVisited(santaVisited, roboVisited)
 	return countAtLeastOneVisit(visited)
+}
+
+func mergeVisited(visited1 map[Location]int, visited2 map[Location]int) map[Location]int {
+	merged := map[Location]int{}
+
+	for location, count := range visited1 {
+		if _, ok := merged[location]; !ok {
+			merged[location] = count
+		} else {
+			merged[location] += count
+		}
+	}
+	for location, count := range visited2 {
+		if _, ok := merged[location]; !ok {
+			merged[location] = count
+		} else {
+			merged[location] += count
+		}
+	}
+	return merged
+}
+
+func splitDirs(dirs []Direction) ([]Direction, []Direction) {
+	dirs1 := []Direction{}
+	dirs2 := []Direction{}
+
+	for i, dir := range dirs {
+		if i % 2 == 0 {
+			dirs1 = append(dirs1, dir)
+		} else {
+			dirs2 = append(dirs2, dir)
+		}
+	}
+	return dirs1, dirs2
 }
 
 func countAtLeastOneVisit(visited map[Location]int) int {
