@@ -1,19 +1,12 @@
 package day3
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 import . "github.com/aceakash/advent_of_code_2015"
 
 func TestFirstProblem(t *testing.T) {
-	input := MustReadFile()
-	got := FirstProblem(input)
-	want := 2572
-
-	if got != want {
-		t.Errorf("Wanted %v, got %v", want, got)
-	}
-}
-
-func TestFirstProblem_Examples(t *testing.T) {
 	testData := []struct{
 		input string
 		want int
@@ -21,6 +14,7 @@ func TestFirstProblem_Examples(t *testing.T) {
 		{`>`, 2,},
 		{`^>v<`, 4,},
 		{`^v^v^v^v^v`, 2,},
+		{ MustReadFile(), 2572},
 	}
 
 	for _, td := range testData {
@@ -29,9 +23,25 @@ func TestFirstProblem_Examples(t *testing.T) {
 			t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
 		}
 	}
+}
 
+func TestSecondProblem(t *testing.T) {
+	testData := []struct{
+		input string
+		want int
+	}{
+		{`>`, 3,},
+		{`^>v<`, 3,},
+		{`^v^v^v^v^v`, 11,},
+		{ MustReadFile(), math.MaxInt64},
+	}
 
-
+	for _, td := range testData {
+		got := SecondProblem(td.input)
+		if got != td.want {
+			t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
+		}
+	}
 }
 
 

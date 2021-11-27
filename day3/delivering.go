@@ -6,9 +6,13 @@ import (
 
 func FirstProblem(input string) int {
 	var dirs []Direction = directionsFromInput(input)
-	visited := map[Location]int{}
+	visited := deliveryJob(Location{0, 0}, dirs)
+	return countAtLeastOneVisit(visited)
+}
 
-	currLoc := Location{0, 0}
+func deliveryJob(startLoc Location, dirs []Direction) map[Location]int {
+	visited := map[Location]int{}
+	currLoc := startLoc
 	visited[currLoc] += 1
 	for _, dir := range dirs {
 		newLoc := goToNextLocation(currLoc, dir)
@@ -16,6 +20,20 @@ func FirstProblem(input string) int {
 		visited[newLoc] += 1
 		currLoc = newLoc
 	}
+	return visited
+}
+
+
+
+
+func SecondProblem(input string) int {
+	var dirs []Direction = directionsFromInput(input)
+	santaDirs, roboDirs := splitDirs(dirs)
+
+	santaVisited := deliveryJob(Location{0, 0}, santaDirs)
+	roboVisited := deliveryJob(Location{0, 0}, roboDirs)
+
+	visited := mergeVisited(santaVisited, roboVisited)
 	return countAtLeastOneVisit(visited)
 }
 
