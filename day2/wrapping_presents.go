@@ -1,0 +1,80 @@
+package day2
+
+import (
+	"sort"
+	"strconv"
+	"strings"
+)
+
+type PresentDimensions struct {
+	l int
+	w int
+	h int
+}
+
+// Answer: 1598415
+func FirstProblem(input string) int {
+	var parsedInput []PresentDimensions = parseInput(input)
+
+	totalArea := 0
+	for _, present := range parsedInput {
+		totalArea += PresentArea(present)
+	}
+
+	return totalArea
+}
+
+func PresentArea(present PresentDimensions) int {
+	a := areaOfSmallestSize(present)
+	return 2*(present.w*present.h+present.w*present.l+present.l*present.h) + a
+}
+
+func areaOfSmallestSize(present PresentDimensions) int {
+	dims := []int{present.h, present.l, present.w}
+	sort.Ints(dims)
+	return dims[0] * dims[1]
+}
+
+func parseInput(input string) []PresentDimensions {
+	lines := strings.Split(input, "\n")
+	dims := []PresentDimensions{}
+	for _, line := range lines {
+		if len(strings.TrimSpace(line)) == 0 {
+			continue
+		}
+		dimsStr := strings.Split(line, "x")
+
+		dims = append(dims, PresentDimensions{
+			l: MustParseInt(dimsStr[0]),
+			w: MustParseInt(dimsStr[1]),
+			h: MustParseInt(dimsStr[2]),
+		})
+	}
+	return dims
+}
+
+func MustParseInt(s string) int {
+	i, err := strconv.ParseInt(s, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	return int(i)
+}
+
+// Ans:
+func SecondProblem(input string) int {
+	count := 0
+	var i int
+	for _, c := range input {
+		if c == '(' {
+			count++
+		} else if c == ')' {
+			count--
+		}
+		if count == -1 {
+			break
+		}
+		i++
+	}
+	return i + 1
+}
