@@ -18,7 +18,16 @@ func FirstProblem(input string) int {
 }
 
 func IsNice(text string) bool {
-	return containsMinThreeVowels(text) && containsDoubleLetter(text)
+	return containsMinThreeVowels(text) && containsDoubleLetter(text) && !containsForbiddenStrings(text, []string{"ab", "cd", "pq", "xy"})
+}
+
+func containsForbiddenStrings(text string, forbidden []string) bool {
+	for _, fs := range forbidden {
+		if strings.Contains(text, fs) {
+			return true
+		}
+	}
+	return false
 }
 
 func containsDoubleLetter(text string) bool {

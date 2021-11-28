@@ -6,7 +6,7 @@ import (
 )
 
 func TestFirstProblem(t *testing.T) {
-	t.SkipNow()
+	//t.SkipNow()
 	testData := []struct {
 		input string
 		want  int
@@ -16,7 +16,7 @@ func TestFirstProblem(t *testing.T) {
 		{`jchzalrnumimnmhp`, 0},
 		{`haegwjzuvuyypxyu`, 0},
 		{`dvszwmarrgswjxmb`, 0},
-		{MustReadFile(), 999999965},
+		{MustReadFile(), 258},
 	}
 
 	for _, td := range testData {
@@ -62,7 +62,7 @@ func TestIsNice_ShouldContainAtLeastOneDoubleLetter(t *testing.T) {
 	}{
 		{`contains double letter 👍`, `aeobb`, true},
 		{`no double letter 😔`, `aeobcdef`, false},
-		{`letter occurs twice but not attached 😔`, `aeobcbc`, false},
+		{`letter occurs twice but not together 😔`, `aeobcbc`, false},
 		{`double vowel 👍`, `aeoo`, true},
 	}
 
@@ -73,6 +73,29 @@ func TestIsNice_ShouldContainAtLeastOneDoubleLetter(t *testing.T) {
 				t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
 			}
 		})
+	}
+}
 
+func TestIsNice_ShouldNotContainSomeStrings(t *testing.T) {
+	testData := []struct {
+		scenario string
+		input    string
+		want     bool
+	}{
+		{`contains ab 😔`, `abaeobb`, false},
+		{`contains cd 😔`, `cdaeobb`, false},
+		{`contains pq 😔`, `pqaeobb`, false},
+		{`contains xy 😔`, `xyaeobb`, false},
+		{`contains ab although satisfies other reqs 😔`, `abbeo`, false},
+		{`no ab, cd, pq, or xy`, `aeogg`, true},
+	}
+
+	for _, td := range testData {
+		t.Run(td.scenario, func(t *testing.T) {
+			got := IsNice(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
+			}
+		})
 	}
 }
