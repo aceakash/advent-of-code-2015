@@ -5,13 +5,6 @@ import (
 	"testing"
 )
 
-type NaughtyOrNice bool
-
-const (
-	NAUGHTY NaughtyOrNice = true
-	NICE    NaughtyOrNice = false
-)
-
 func TestFirstProblem(t *testing.T) {
 	testData := []struct {
 		input string
