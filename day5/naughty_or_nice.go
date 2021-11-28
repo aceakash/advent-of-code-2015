@@ -2,6 +2,7 @@ package day5
 
 import (
 	. "github.com/aceakash/advent_of_code_2015"
+	"strings"
 )
 
 func FirstProblem(input string) int {
@@ -34,10 +35,14 @@ func containsDoubleLetter(text string) bool {
 
 func containsMinThreeVowels(text string) bool {
 	vowelCount := 0
+	const vowels = "aeiou"
 	for _, r := range text {
-		if r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' {
+		if strings.ContainsRune(vowels, r) {
 			vowelCount++
 		}
+		if vowelCount == 3 {
+			return true
+		}
 	}
-	return vowelCount >= 3
+	return false
 }
