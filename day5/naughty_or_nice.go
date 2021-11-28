@@ -18,10 +18,10 @@ func FirstProblem(input string) int {
 }
 
 func IsNice(text string) bool {
-	return containsMinThreeVowels(text) && containsTwiceInARowOccurrence(text)
+	return containsMinThreeVowels(text) && containsDoubleLetter(text)
 }
 
-func containsTwiceInARowOccurrence(text string) bool {
+func containsDoubleLetter(text string) bool {
 	var prev rune = 0
 	for _, r := range text {
 		if r == prev {

@@ -35,21 +35,50 @@ func TestFirstProblem(t *testing.T) {
 
 func TestIsNice_ShouldContainMinThreeVowels(t *testing.T) {
 	testData := []struct {
-		input string
-		want  bool
+		scenario string
+		input    string
+		want     bool
 	}{
-		{`abb`, false},
-		{`aeobb`, true},
-		{`aaa`, true},
-		{`eee`, true},
-		{`brehijubb`, true},
-		{`xazegovbb`, true},
+		{`only one vowel 😔`, `abb`, false},
+		{`three diff vowels 👍`, `aeobb`, true},
+		{`three same vowels 👍`, `aaa`, true},
+		{`three same vowels 👍`, `eee`, true},
+		{`three vowels in order 👍`, `brehijubb`, true},
+		{`three vowels out of order 👍`, `xozegavbb`, true},
+		{`three vowels (two unique) 👍`, `bbreuehyu`, true},
+		{`only two vowels 😔`, `aa`, false},
+		{`only two vowels 😔`, `eabb`, false},
 	}
 
 	for _, td := range testData {
-		got := IsNice(td.input)
-		if got != td.want {
-			t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
-		}
+		t.Run(td.scenario, func(t *testing.T) {
+			got := IsNice(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
+			}
+		})
+	}
+}
+
+func TestIsNice_ShouldContainAtLeastOneDoubleLetter(t *testing.T) {
+	testData := []struct {
+		scenario string
+		input    string
+		want     bool
+	}{
+		{`contains double letter 👍`, `aeobb`, true},
+		{`no double letter 😔`, `aeobcdef`, false},
+		{`letter occurs twice but not attached 😔`, `aeobcbc`, false},
+		{`double vowel 👍`, `aeoo`, true},
+	}
+
+	for _, td := range testData {
+		t.Run(td.scenario, func(t *testing.T) {
+			got := IsNice(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
+			}
+		})
+
 	}
 }
