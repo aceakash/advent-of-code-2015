@@ -18,21 +18,26 @@ func FirstProblem(input string) int {
 }
 
 func IsNice(text string) bool {
-	if !containsMinThreeVowels(text) {
-		return false
-	}
+	return containsMinThreeVowels(text) && containsTwiceInARowOccurrence(text)
+}
 
-	return true
+func containsTwiceInARowOccurrence(text string) bool {
+	var prev rune = 0
+	for _, r := range text {
+		if r == prev {
+			return true
+		}
+		prev = r
+	}
+	return false
 }
 
 func containsMinThreeVowels(text string) bool {
 	vowelCount := 0
 	for _, r := range text {
-		if r == 'a' || r == 'e' || r == 'i'|| r == 'o'|| r == 'u' {
+		if r == 'a' || r == 'e' || r == 'i' || r == 'o' || r == 'u' {
 			vowelCount++
 		}
 	}
 	return vowelCount >= 3
 }
-
-

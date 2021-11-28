@@ -38,11 +38,12 @@ func TestIsNice_ShouldContainMinThreeVowels(t *testing.T) {
 		input string
 		want  bool
 	}{
-		{`a`, false},
-		{`aeo`, true},
+		{`abb`, false},
+		{`aeobb`, true},
 		{`aaa`, true},
 		{`eee`, true},
-		{`brehiju`, true},
+		{`brehijubb`, true},
+		{`xazegovbb`, true},
 	}
 
 	for _, td := range testData {
