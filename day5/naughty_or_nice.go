@@ -1,12 +1,11 @@
 package day5
 
 import (
-	. "github.com/aceakash/advent_of_code_2015"
 	"strings"
 )
 
 func FirstProblem(input string) int {
-	lines := MustGetInputLinesFromFile()
+	lines := strings.Split(input, "\n")
 
 	count := 0
 	for _, line := range lines {
