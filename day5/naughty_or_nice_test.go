@@ -28,26 +28,21 @@ func TestFirstProblem(t *testing.T) {
 
 func TestSecondProblem(t *testing.T) {
 	testData := []struct {
-		scenario string
-		input    string
-		want     int
+		input string
+		want  int
 	}{
-		{`pair of letters appearing twice 👍`, `abab`, 1},
-		{`pair of letters appearing twice 👍`, `xyxy`, 1},
-		{`pair of letters appearing twice (but not consecutive) 👍`, `xyoooooxy`, 1},
-		{`pair of letters appearing twice (but not consecutive) 👍`, `aabcdefgaa`, 1},
-		{`pair of letters appearing twice but with overlap 😔`, `aaa`, 0},
-		{`no pair of letters appearing twice 😔`, `ieodomkazucvgmuy`, 0},
-		//{MustReadFile(), 258},
+		{`qjhvhtzxzqqjkmpb`, 1},
+		{`xxyxx`, 1},
+		{`uurcxstgmygtbstg`, 0},
+		{`ieodomkazucvgmuy`, 0},
+		{MustReadFile(), 53},
 	}
 
 	for _, td := range testData {
-		t.Run(td.scenario, func(t *testing.T) {
-			got := SecondProblem(td.input)
-			if got != td.want {
-				t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
-			}
-		})
+		got := SecondProblem(td.input)
+		if got != td.want {
+			t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
+		}
 	}
 }
 
@@ -119,6 +114,52 @@ func TestIsNice_ShouldNotContainSomeStrings(t *testing.T) {
 			got := IsNice(td.input)
 			if got != td.want {
 				t.Errorf("Wanted %v for %v, got %v", td.want, td.input, got)
+			}
+		})
+	}
+}
+
+func TestIsNice2_PairOfLettersAppearingTwice(t *testing.T) {
+	testData := []struct {
+		scenario string
+		input    string
+		want     int
+	}{
+		{`pair of letters appearing twice 👍`, `ababxyx`, 1},
+		{`pair of letters appearing twice 👍`, `xyxyaba`, 1},
+		{`pair of letters appearing twice (but not consecutive) 👍`, `xyoooooxyaba`, 1},
+		{`pair of letters appearing twice (but not consecutive) 👍`, `aabcdefgaaxyx`, 1},
+		{`pair of letters appearing twice but with overlap 😔`, `aaaxyx`, 0},
+		{`no pair of letters appearing twice 😔`, `ieodomkazucvgmuyaba`, 0},
+	}
+
+	for _, td := range testData {
+		t.Run(td.scenario, func(t *testing.T) {
+			got := SecondProblem(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
+			}
+		})
+	}
+}
+
+func TestIsNice2_AtLeastOneLetterRepeatedIn_aba_Pattern(t *testing.T) {
+	testData := []struct {
+		scenario string
+		input    string
+		want     int
+	}{
+		{`repeated letter in aba patter 👍`, `abab`, 1},
+		{`repeated letter in aba patter 👍`, `ababxyx`, 1},
+		{`repeated letter in aba patter 👍`, `aaaxyxy`, 1},
+		{`no repeated letter in aba patter 😔`, `xysdgxy`, 0},
+	}
+
+	for _, td := range testData {
+		t.Run(td.scenario, func(t *testing.T) {
+			got := SecondProblem(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
 			}
 		})
 	}

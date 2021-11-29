@@ -36,7 +36,19 @@ func IsNice(text string) bool {
 }
 
 func IsNice2(text string) bool {
-	return containsPairOfLettersTwice(text)
+	return containsPairOfLettersTwice(text) && containsAbaPattern(text)
+}
+
+func containsAbaPattern(text string) bool {
+	if len(text) < 3 {
+		return false
+	}
+	for i := 0; i <= len(text)-3; i++ {
+		if text[i] == text[i+2] && text[i] != text[i+1] {
+			return true
+		}
+	}
+	return false
 }
 
 func containsPairOfLettersTwice(text string) bool {
