@@ -6,7 +6,6 @@ import (
 )
 
 func TestFirstProblem(t *testing.T) {
-	//t.SkipNow()
 	testData := []struct {
 		input string
 		want  int
@@ -24,6 +23,31 @@ func TestFirstProblem(t *testing.T) {
 		if got != td.want {
 			t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
 		}
+	}
+}
+
+func TestSecondProblem(t *testing.T) {
+	testData := []struct {
+		scenario string
+		input    string
+		want     int
+	}{
+		{`pair of letters appearing twice 👍`, `abab`, 1},
+		{`pair of letters appearing twice 👍`, `xyxy`, 1},
+		{`pair of letters appearing twice (but not consecutive) 👍`, `xyoooooxy`, 1},
+		{`pair of letters appearing twice (but not consecutive) 👍`, `aabcdefgaa`, 1},
+		{`pair of letters appearing twice but with overlap 😔`, `aaa`, 0},
+		{`no pair of letters appearing twice 😔`, `ieodomkazucvgmuy`, 0},
+		//{MustReadFile(), 258},
+	}
+
+	for _, td := range testData {
+		t.Run(td.scenario, func(t *testing.T) {
+			got := SecondProblem(td.input)
+			if got != td.want {
+				t.Errorf("Wanted %d for %v, got %d", td.want, td.input, got)
+			}
+		})
 	}
 }
 

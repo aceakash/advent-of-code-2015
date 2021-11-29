@@ -1,6 +1,7 @@
 package day5
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -17,8 +18,38 @@ func FirstProblem(input string) int {
 	return count
 }
 
+func SecondProblem(input string) int {
+	lines := strings.Split(input, "\n")
+
+	count := 0
+	for _, line := range lines {
+		if IsNice2(line) {
+			count++
+		}
+	}
+
+	return count
+}
+
 func IsNice(text string) bool {
 	return containsMinThreeVowels(text) && containsDoubleLetter(text) && !containsForbiddenStrings(text, []string{"ab", "cd", "pq", "xy"})
+}
+
+func IsNice2(text string) bool {
+	return containsPairOfLettersTwice(text)
+}
+
+func containsPairOfLettersTwice(text string) bool {
+	if len(text) < 4 {
+		return false
+	}
+	for i := 0; i <= len(text)-4; i++ {
+		pair := fmt.Sprintf("%c%c", text[i], text[i+1])
+		if strings.Contains(text[i+2:], pair) {
+			return true
+		}
+	}
+	return false
 }
 
 func containsForbiddenStrings(text string, forbidden []string) bool {
